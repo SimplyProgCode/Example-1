@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jaskiding</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Mencegah scroll saat loading */
+        }
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            transform: rotate(-45deg);
+            margin: 20px;
+        }
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+        .heart:after {
+            left: 50px;
+            top: 0;
+        }
+        .text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #ff3366;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="text">Sabar mas...</div>
+    <div id="content" class="hidden">
+        <div class="heart"></div>
+        <div id="typedText" class="text"></div>
+        <div id="additionalText" class="text hidden"></div>
+    </div>
+
+    <script>
+        // Fungsi untuk menampilkan konten setelah jeda waktu
+        setTimeout(function() {
+            document.getElementById('loading').classList.add('hidden'); // Sembunyikan loading
+            document.getElementById('content').classList.remove('hidden'); // Tampilkan konten
+            typeText("Kamu Niga Aku Jawa ", 100); // Mulai animasi ketik
+        }, 3000); // Jeda waktu dalam milidetik (3000 ms = 3 detik)
+
+        // Fungsi untuk animasi ketik
+        function typeText(text, speed) {
+            let i = 0;
+            const typedTextElement = document.getElementById("typedText");
+            function type() {
+                if (i < text.length) {
+                    typedTextElement.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Setelah selesai mengetik, mulai animasi ketik untuk teks tambahan
+                    setTimeout(function() {
+                        typeText("Kamu Niga Aku Jawa ", 100);
+                    }, 1000); // Jeda waktu sebelum mulai animasi ketik teks tambahan
+                }
+            }
+            type();
+        }
+    </script>
+</body>
+</html>
